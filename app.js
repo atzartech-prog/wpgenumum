@@ -1,4 +1,4 @@
-// WP Page Generator Application Code (Updated with Advanced Features)
+// WP Page Generator Application Code (Updated with Dinas & Advanced Features)
 
 // Color Presets mapping
 const PRESETS = {
@@ -13,12 +13,12 @@ const PRESETS = {
 // Global Page State
 let pageState = {
     config: {
-        primary: '#6366f1',
-        secondary: '#a855f7',
+        primary: '#0d9488',
+        secondary: '#f59e0b',
         bg: '#ffffff',
-        text: '#1f2937',
-        fontFamily: 'Outfit',
-        containerWidth: 1150,
+        text: '#1e293b',
+        fontFamily: 'Inter',
+        containerWidth: 1200,
         sectionPadding: 70
     },
     sections: [],
@@ -32,7 +32,8 @@ const SVG_ICONS = {
     arrowRight: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="18" height="18" style="display:inline-block;vertical-align:middle;margin-left:6px;"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" /></svg>`,
     mail: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.22a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z" /><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" /></svg>`,
     phone: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20"><path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c.41.847.9 1.636 1.466 2.364l.814-.582a1.5 1.5 0 012.01.124l2.28 2.28a1.5 1.5 0 01.09 2.007l-.64.896a1.5 1.5 0 01-1.678.452l-.985-.328a12.054 12.054 0 01-6.09-6.09l-.328-.985a1.5 1.5 0 01.452-1.678l.896-.64a1.5 1.5 0 012.007.09l2.28 2.28a1.5 1.5 0 01.124 2.01l-.582.814c.728.566 1.517 1.055 2.364 1.466l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.431A13.022 13.022 0 012.43 8.326 13.019 13.019 0 012 5V3.5z" clip-rule="evenodd" /></svg>`,
-    mapPin: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.555 1.898c.328.203.6.353.79.453l.018.009.005.002zM10 12a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg>`
+    mapPin: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.555 1.898c.328.203.6.353.79.453l.018.009.005.002zM10 12a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg>`,
+    chevronRight: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16" style="display:inline-block;vertical-align:middle;margin-left:4px;"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>`
 };
 
 // Section Templates Default & Configuration Data
@@ -61,6 +62,170 @@ const TEMPLATE_DEFS = {
             { id: 'btnSecondaryLink', label: 'Secondary Button Link', type: 'text' },
             { id: 'imageUrl', label: 'Hero Image URL', type: 'text' },
             { id: 'bgOverlay', label: 'Light Gradient Background Accent', type: 'checkbox' }
+        ]
+    },
+    hero_slider: {
+        name: 'Header Slider',
+        icon: 'fa-images',
+        defaults: {
+            items: [
+                { title: 'Selamat Datang di Portal Resmi Dinas Lingkungan Hidup', subtitle: 'Mewujudkan lingkungan perkotaan yang asri, hijau, bersih, dan berkelanjutan demi kesehatan masa depan kita.', image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&auto=format&fit=crop&q=80', btnText: 'Profil Dinas', btnLink: '#dinas-profile' },
+                { title: 'Layanan Pengaduan & Kebersihan Publik', subtitle: 'Akses pendaftaran pengangkutan sampah, aduan limbah berbahaya, dan perizinan lingkungan hidup secara digital.', image: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=1200&auto=format&fit=crop&q=80', btnText: 'Portal Layanan', btnLink: '#layanan' },
+                { title: 'Sosialisasi Program Zero-Waste Seluruh Kecamatan', subtitle: 'Gerakan memilah sampah dari rumah tangga dan pendirian bank sampah terpadu di tingkat RW.', image: 'https://images.unsplash.com/photo-1503596476-1c12a8ba09a9?w=1200&auto=format&fit=crop&q=80', btnText: 'Baca Program', btnLink: '#berita' }
+            ]
+        },
+        fields: [
+            {
+                id: 'items',
+                label: 'Slides List (Maks 5 rekomendasi)',
+                type: 'repeater',
+                titleField: 'title',
+                fields: [
+                    { id: 'title', label: 'Slide Headline Title', type: 'text' },
+                    { id: 'subtitle', label: 'Slide Description Text', type: 'textarea' },
+                    { id: 'image', label: 'Background Image URL', type: 'text' },
+                    { id: 'btnText', label: 'Button Text', type: 'text' },
+                    { id: 'btnLink', label: 'Button Link', type: 'text' }
+                ]
+            }
+        ]
+    },
+    quick_links: {
+        name: 'Quick Links Grid',
+        icon: 'fa-circle-nodes',
+        defaults: {
+            title: 'Portal Layanan Utama',
+            subtitle: 'Akses cepat berbagai aplikasi pelayanan publik dan administrasi internal unit kerja kami.',
+            items: [
+                { title: 'PPID Dinas', desc: 'Pejabat Pengelola Informasi & Dokumentasi', icon: '📁', link: '#' },
+                { title: 'Layanan Digital', desc: 'Perizinan Amdal & Izin Lingkungan Online', icon: '🌐', link: '#' },
+                { title: 'Pengaduan Limbah', desc: 'Formulir Pengaduan Pelanggaran Kebersihan', icon: '💬', link: '#' },
+                { title: 'Profil Unit', desc: 'Sejarah, Visi, Misi, & Struktur Organisasi', icon: '🏛️', link: '#' }
+            ]
+        },
+        fields: [
+            { id: 'title', label: 'Section Title', type: 'text' },
+            { id: 'subtitle', label: 'Section Subtitle', type: 'textarea' },
+            {
+                id: 'items',
+                label: 'Quick Link Items',
+                type: 'repeater',
+                titleField: 'title',
+                fields: [
+                    { id: 'icon', label: 'Emoji/Icon', type: 'text' },
+                    { id: 'title', label: 'Link Title', type: 'text' },
+                    { id: 'desc', label: 'Short Description', type: 'text' },
+                    { id: 'link', label: 'URL Link', type: 'text' }
+                ]
+            }
+        ]
+    },
+    news_grid: {
+        name: 'News Posts Grid',
+        icon: 'fa-newspaper',
+        defaults: {
+            title: 'Berita & Kegiatan Terbaru',
+            subtitle: 'Ikuti publikasi rilis pers, berita terbaru, dan dokumentasi kegiatan dinas kami.',
+            items: [
+                { title: 'Rapat Koordinasi Evaluasi Kebersihan Wilayah Semester I Tahun 2026', excerpt: 'Kepala Dinas memimpin rapat evaluasi guna mempercepat program strategis zero-waste di seluruh kecamatan.', image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&auto=format&fit=crop&q=80', date: '20 Juni 2026', cat: 'Pengumuman', link: '#' },
+                { title: 'Penyuluhan Pengelolaan Sampah Mandiri di Tingkat Kelurahan Binaan', excerpt: 'Kegiatan ini bertujuan menurunkan volume sampah organik rumah tangga dengan pembuatan pupuk kompos mandiri.', image: 'https://images.unsplash.com/photo-1505151828126-66d4e21a2f64?w=600&auto=format&fit=crop&q=80', date: '18 Juni 2026', cat: 'Sosialisasi', link: '#' },
+                { title: 'Kunjungan Kerja Studi Banding Manajemen Pengolahan Sampah Terpadu', excerpt: 'Delegasi dinas mempelajari teknologi insinerator ramah lingkungan dan pemilahan otomatis berbasis AI.', image: 'https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?w=600&auto=format&fit=crop&q=80', date: '15 Juni 2026', cat: 'Kunjungan', link: '#' }
+            ]
+        },
+        fields: [
+            { id: 'title', label: 'Section Title', type: 'text' },
+            { id: 'subtitle', label: 'Section Subtitle', type: 'textarea' },
+            {
+                id: 'items',
+                label: 'News Articles List',
+                type: 'repeater',
+                titleField: 'title',
+                fields: [
+                    { id: 'title', label: 'Article Title', type: 'text' },
+                    { id: 'excerpt', label: 'Short Excerpt Description', type: 'textarea' },
+                    { id: 'image', label: 'Featured Image URL', type: 'text' },
+                    { id: 'date', label: 'Publication Date', type: 'text' },
+                    { id: 'cat', label: 'Category Badge', type: 'text' },
+                    { id: 'link', label: 'Article Link', type: 'text' }
+                ]
+            }
+        ]
+    },
+    video_block: {
+        name: 'YouTube Video',
+        icon: 'fa-video',
+        defaults: {
+            title: 'Sambutan Kepala Dinas & Profil Video',
+            subtitle: 'Saksikan video profil singkat untuk mengenal tugas pokok dan fungsi unit kerja kami.',
+            youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+            textDesc: 'Selamat datang di Portal Resmi Unit Kerja Dinas kami. Video profil ini menjelaskan komitmen besar kami dalam menyelenggarakan pelayanan publik yang prima, transparan, dan akuntabel berbasis teknologi informasi. Kami mengajak seluruh elemen masyarakat untuk berkolaborasi mewujudkan kota yang bersih dan sehat.',
+            btnText: 'Lihat Visi Misi Lengkap',
+            btnLink: '#dinas-profile'
+        },
+        fields: [
+            { id: 'title', label: 'Section Title', type: 'text' },
+            { id: 'subtitle', label: 'Section Subtitle', type: 'textarea' },
+            { id: 'youtubeUrl', label: 'YouTube Embed URL (Format /embed/video_id)', type: 'text' },
+            { id: 'textDesc', label: 'Description Text (Samping Video)', type: 'textarea' },
+            { id: 'btnText', label: 'Button Text', type: 'text' },
+            { id: 'btnLink', label: 'Button Link', type: 'text' }
+        ]
+    },
+    cert_slider: {
+        name: 'Certificates Slider',
+        icon: 'fa-certificate',
+        defaults: {
+            title: 'Sertifikat & Penghargaan Prestasi',
+            subtitle: 'Komitmen pelayanan terbaik kami dibuktikan dengan berbagai penghargaan tingkat nasional dan daerah.',
+            items: [
+                { title: 'Penghargaan Kepatuhan Pelayanan Publik Standar Ombudsman RI', image: 'https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?w=400&auto=format&fit=crop&q=80', date: 'Tahun 2025' },
+                { title: 'Sertifikasi ISO 9001:2015 Sistem Manajemen Mutu Pelayanan', image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&auto=format&fit=crop&q=80', date: 'Tahun 2024' },
+                { title: 'Juara I Inovasi Pelayanan Publik Digital Daerah', image: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=400&auto=format&fit=crop&q=80', date: 'Tahun 2025' }
+            ]
+        },
+        fields: [
+            { id: 'title', label: 'Section Title', type: 'text' },
+            { id: 'subtitle', label: 'Section Subtitle', type: 'textarea' },
+            {
+                id: 'items',
+                label: 'Certificates List',
+                type: 'repeater',
+                titleField: 'title',
+                fields: [
+                    { id: 'title', label: 'Certificate / Award Title', type: 'text' },
+                    { id: 'image', label: 'Certificate Image URL', type: 'text' },
+                    { id: 'date', label: 'Award Date/Year', type: 'text' }
+                ]
+            }
+        ]
+    },
+    important_links: {
+        name: 'Important Links',
+        icon: 'fa-link',
+        defaults: {
+            title: 'Pranala Penting & Regulasi',
+            subtitle: 'Kumpulan tautan penting lembaga pemerintah pusat, regulasi, dan aplikasi pengadaan barang/jasa.',
+            items: [
+                { name: 'Website Pemerintah Provinsi / Kabupaten', link: '#', desc: 'Portal utama daerah koordinasi dinas.' },
+                { name: 'Sistem Informasi Rencana Umum Pengadaan (SiRUP)', link: '#', desc: 'Rencana umum pengadaan barang dan jasa dinas.' },
+                { name: 'Layanan Pengadaan Secara Elektronik (LPSE)', link: '#', desc: 'Informasi lelang pengadaan barang dan jasa elektronik.' },
+                { name: 'Jaringan Dokumentasi dan Informasi Hukum (JDIH)', link: '#', desc: 'Kumpulan produk hukum daerah dan pusat.' }
+            ]
+        },
+        fields: [
+            { id: 'title', label: 'Section Title', type: 'text' },
+            { id: 'subtitle', label: 'Section Subtitle', type: 'textarea' },
+            {
+                id: 'items',
+                label: 'Portals List',
+                type: 'repeater',
+                titleField: 'name',
+                fields: [
+                    { id: 'name', label: 'Portal Name', type: 'text' },
+                    { id: 'desc', label: 'Short Description', type: 'text' },
+                    { id: 'link', label: 'URL Link', type: 'text' }
+                ]
+            }
         ]
     },
     features: {
@@ -131,7 +296,7 @@ const TEMPLATE_DEFS = {
         icon: 'fa-quote-left',
         defaults: {
             title: 'Apa Kata Pelanggan Kami?',
-            subtitle: 'Ratusan pelaku UMKM dan bisnis online telah membuktikan kehebatan fitur kami untuk konversi iklan mereka.',
+            subtitle: 'Ratusan pelaku UMKM telah membuktikan kehebatan fitur kami untuk konversi iklan mereka.',
             items: [
                 { name: 'Ahmad Subarjo', role: 'Owner TokoHerbal.com', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80', quote: 'Luar biasa! Setelah menggunakan template landing page ini, konversi penjualan produk herbal saya meningkat hingga 180%. Sangat direkomendasikan!', rating: '5' },
                 { name: 'Diana Lestari', role: 'Founder FashionModern', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80', quote: 'Landing page-nya sangat cepat diakses dari HP. CS kami kewalahan menerima chat pesanan WhatsApp semenjak kami beralih ke layout ini.', rating: '5' }
@@ -241,6 +406,112 @@ const TEMPLATE_DEFS = {
 
 // FULL-PAGE TEMPLATES PRESETS
 const FULL_PAGE_TEMPLATES = {
+    dinas: {
+        config: { primary: '#0d9488', secondary: '#f59e0b', bg: '#ffffff', text: '#1e293b', fontFamily: 'Inter', containerWidth: 1200, sectionPadding: 60 },
+        sections: [
+            {
+                id: 'slider-dinas',
+                type: 'hero_slider',
+                name: 'Header Slider Berita',
+                styles: { customId: 'beranda-slider', bgType: 'theme', bgColor: '#ffffff', textColor: '#1f2937', paddingTop: 0, paddingBottom: 0 },
+                content: {
+                    items: [
+                        { title: 'Selamat Datang di Portal Resmi Dinas Lingkungan Hidup', subtitle: 'Melayani informasi keterbukaan publik, program kebersihan tata kota, serta pelestarian lingkungan kota berkelanjutan.', image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&auto=format&fit=crop&q=80', btnText: 'Selengkapnya', btnLink: '#profil-dinas' },
+                        { title: 'Program Penghijauan 10.000 Pohon Wilayah Kota', subtitle: 'Kolaborasi dinas bersama komunitas pemuda hijau daerah guna menyerap emisi karbon di pusat perbelanjaan dan jalan protokol.', image: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=1200&auto=format&fit=crop&q=80', btnText: 'Daftar Relawan', btnLink: '#layanan' },
+                        { title: 'Layanan Penjemputan Sampah B3 Rumah Tangga', subtitle: 'Sekarnag Anda bisa melaporkan limbah elektronik dan baterai bekas untuk dijemput petugas secara gratis.', image: 'https://images.unsplash.com/photo-1503596476-1c12a8ba09a9?w=1200&auto=format&fit=crop&q=80', btnText: 'Pesan Penjemputan', btnLink: '#layanan' }
+                    ]
+                }
+            },
+            {
+                id: 'links-dinas',
+                type: 'quick_links',
+                name: 'Portal Layanan Utama',
+                styles: { customId: 'layanan', bgType: 'light', bgColor: '#ffffff', textColor: '#1f2937', paddingTop: 60, paddingBottom: 60 },
+                content: {
+                    title: 'Layanan Publik Terintegrasi',
+                    subtitle: 'Akses cepat administrasi persuratan dinas, aduan pencemaran, portal PPID, serta informasi tata laksana dinas.',
+                    items: [
+                        { title: 'PPID Dinas', desc: 'Hak Keterbukaan Informasi Publik', icon: '📁', link: '#' },
+                        { title: 'Pengaduan Limbah', desc: 'Aduan Pencemaran Lingkungan & Sampah', icon: '💬', link: '#' },
+                        { title: 'Izin Lingkungan', desc: 'Sistem Informasi Dokumen Amdal Online', icon: '🌐', link: '#' },
+                        { title: 'Struktur Organisasi', desc: 'Profil Pejabat & Rincian Visi Misi', icon: '🏛️', link: '#dinas-profile' }
+                    ]
+                }
+            },
+            {
+                id: 'news-dinas',
+                type: 'news_grid',
+                name: 'Berita & Kegiatan',
+                styles: { customId: 'berita', bgType: 'theme', bgColor: '#ffffff', textColor: '#1f2937', paddingTop: 70, paddingBottom: 70 },
+                content: {
+                    title: 'Warta Kegiatan & Publikasi',
+                    subtitle: 'Ikuti informasi rilis pers resmi, agenda sosialisasi, dan berita operasional teranyar dinas.',
+                    items: [
+                        { title: 'Rapat Koordinasi Evaluasi Kebersihan Wilayah Semester I Tahun 2026', excerpt: 'Kepala Dinas memimpin rapat koordinasi rutin bersama jajaran UPT Kebersihan guna menyongsong verifikasi penilaian piala Adipura.', image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&auto=format&fit=crop&q=80', date: '20 Juni 2026', cat: 'Pengumuman', link: '#' },
+                        { title: 'Penyuluhan Pembuatan Kompos Mandiri Skala Rumah Tangga di Kecamatan Makmur', excerpt: 'Dinas membagikan alat komposter gratis dan mempraktikkan pengolahan sampah organik basah menjadi pupuk tanaman.', image: 'https://images.unsplash.com/photo-1505151828126-66d4e21a2f64?w=600&auto=format&fit=crop&q=80', date: '18 Juni 2026', cat: 'Sosialisasi', link: '#' },
+                        { title: 'Penandatanganan MoU Kerja Sama Penataan Hutan Kota Berkelanjutan', excerpt: 'Sinergi dinas bersama korporasi swasta untuk mengelola hutan kota ramah anak lewat skema Corporate Social Responsibility.', image: 'https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?w=600&auto=format&fit=crop&q=80', date: '15 Juni 2026', cat: 'Kerja Sama', link: '#' }
+                    ]
+                }
+            },
+            {
+                id: 'video-dinas',
+                type: 'video_block',
+                name: 'Profil Video Dinas',
+                styles: { customId: 'dinas-profile', bgType: 'theme', bgColor: '#ffffff', textColor: '#1f2937', paddingTop: 70, paddingBottom: 70 },
+                content: {
+                    title: 'Sambutan Kepala Dinas & Profil Video',
+                    subtitle: 'Saksikan video pengenalan visi, misi, dan tugas pokok jajaran struktural Dinas kami.',
+                    youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+                    textDesc: 'Selamat datang di portal informasi resmi dinas kami. Kami berkomitmen untuk terus menghadirkan transparansi publik dan mewujudkan program berkelanjutan yang ramah lingkungan. Melalui video profil ini, Anda dapat memahami proses operasional, program kerja tahunan, serta inovasi digital terbaru yang kami kembangkan demi kenyamanan bersama.',
+                    btnText: 'Hubungi Support Kami',
+                    btnLink: '#hubungi-kami'
+                }
+            },
+            {
+                id: 'certs-dinas',
+                type: 'cert_slider',
+                name: 'Slider Sertifikat Prestasi',
+                styles: { customId: 'prestasi', bgType: 'light', bgColor: '#ffffff', textColor: '#1f2937', paddingTop: 70, paddingBottom: 70 },
+                content: {
+                    title: 'Sertifikasi & Penghargaan Prestasi',
+                    subtitle: 'Bukti nyata dedikasi dan profesionalitas dinas kami dalam tata kelola pelayanan publik.',
+                    items: [
+                        { title: 'Penghargaan Kepatuhan Pelayanan Publik Standar Ombudsman RI', image: 'https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?w=400&auto=format&fit=crop&q=80', date: 'Peringkat Kepatuhan Tinggi 2025' },
+                        { title: 'Sertifikasi ISO 9001:2015 Sistem Manajemen Mutu Pelayanan Publik', image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&auto=format&fit=crop&q=80', date: 'Sertifikat Mutu Layanan Terakreditasi 2024' },
+                        { title: 'Juara I Inovasi Pelayanan Publik Digital Tingkat Provinsi', image: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=400&auto=format&fit=crop&q=80', date: 'Penghargaan Inovasi Sampah Digital 2025' }
+                    ]
+                }
+            },
+            {
+                id: 'external-dinas',
+                type: 'important_links',
+                name: 'Pranala Penting',
+                styles: { customId: 'pranala-luar', bgType: 'theme', bgColor: '#ffffff', textColor: '#1f2937', paddingTop: 60, paddingBottom: 60 },
+                content: {
+                    title: 'Pranala Penting / Tautan Luar',
+                    subtitle: 'Akses langsung ke portal kementerian pusat, sistem hukum, pengadaan, dan anggaran daerah.',
+                    items: [
+                        { name: 'Kementerian Lingkungan Hidup dan Kehutanan RI', link: '#', desc: 'Portal resmi pusat kebijakan nasional kehutanan dan lingkungan.' },
+                        { name: 'Sistem Rencana Umum Pengadaan (SiRUP)', link: '#', desc: 'Rincian anggaran rencana pengadaan barang/jasa dinas.' },
+                        { name: 'Layanan Pengadaan Secara Elektronik (LPSE) Kota', link: '#', desc: 'Informasi tender dan pengadaan barang dinas secara elektronik.' },
+                        { name: 'Jaringan Dokumentasi & Informasi Hukum (JDIH)', link: '#', desc: 'Produk peraturan daerah, instruksi gubernur, dan keputusan dinas.' }
+                    ]
+                }
+            },
+            {
+                id: 'footer-dinas',
+                type: 'footer',
+                name: 'Footer Resmi Dinas',
+                styles: { customId: 'hubungi-kami', bgType: 'dark', bgColor: '#ffffff', textColor: '#1f2937', paddingTop: 50, paddingBottom: 50 },
+                content: {
+                    copyright: '© 2026 Pemerintah Kota - Dinas Lingkungan Hidup. Hak Cipta Dilindungi.',
+                    socialFb: '#',
+                    socialTw: '#',
+                    socialIg: '#'
+                }
+            }
+        ]
+    },
     saas: {
         config: { primary: '#2563eb', secondary: '#7c3aed', bg: '#ffffff', text: '#1f2937', fontFamily: 'Outfit', containerWidth: 1150, sectionPadding: 70 },
         sections: [
@@ -286,7 +557,7 @@ const FULL_PAGE_TEMPLATES = {
                     title: 'Paket Harga Investasi Terbaik',
                     subtitle: 'Mulai dengan paket gratis atau pilih lisensi berbayar untuk kapasitas tak terbatas.',
                     items: [
-                        { name: 'Starter', price: 'Rp 149k', period: 'bln', desc: 'Cocok untuk proyek personal.', features: '1 Project Dashboard\nStandard Reports\nSupport via Chat', btnText: 'Pilih Starter', btnLink: '#saas-cta', popular: false },
+                        { name: 'Starter', price: 'Rp 149k', period: 'bln', desc: 'Cocok untuk pemula yang baru memulai bisnis online.', features: '1 Project Dashboard\nStandard Reports\nSupport via Chat', btnText: 'Pilih Starter', btnLink: '#saas-cta', popular: false },
                         { name: 'Pro Premium', price: 'Rp 299k', period: 'bln', desc: 'Terbaik untuk startup berkembang.', features: '5 Project Dashboards\nPremium Realtime Analytics\nPriority Support 24/7\nDeveloper API Integrations', btnText: 'Coba Gratis 14 Hari', btnLink: '#saas-cta', popular: true },
                         { name: 'Agensi', price: 'Rp 899k', period: 'thn', desc: 'Solusi lengkap agensi besar.', features: 'Unlimited Dashboards\nCustom SLA Guarantee\nDedicated Server Infrastructure\nComplete API & Webhooks', btnText: 'Hubungi Sales', btnLink: '#saas-cta', popular: false }
                     ]
@@ -490,8 +761,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupProjectIO();
     setupTemplateLoaders();
 
-    // Add initial Hero & Features & CTA sections to show something beautiful on load
-    loadTemplate('saas');
+    // Add initial Dinas template to show off the dinas features immediately
+    loadTemplate('dinas');
 });
 
 // 1. TAB NAVIGATION
@@ -519,7 +790,7 @@ function setupColorPickers() {
             e.target.nextElementSibling.textContent = e.target.value.toUpperCase();
             
             // Remove active style from presets
-            document.querySelectorAll('.preset-btn').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.preset-btn[data-preset]').forEach(p => p.classList.remove('active'));
             
             render();
         });
@@ -617,10 +888,10 @@ function addSection(type) {
         styles: {
             customId: '',
             bgType: 'theme',
-            bgColor: '#f9fafb',
+            bgColor: '#ffffff',
             textColor: '#1f2937',
-            paddingTop: pageState.config.sectionPadding,
-            paddingBottom: pageState.config.sectionPadding
+            paddingTop: type === 'hero_slider' ? 0 : pageState.config.sectionPadding,
+            paddingBottom: type === 'hero_slider' ? 0 : pageState.config.sectionPadding
         },
         content: content
     });
@@ -673,14 +944,12 @@ function updateOutlineUI() {
             </div>
         `;
 
-        // Selection click
         li.querySelector('.section-info').addEventListener('click', () => {
             pageState.activeSectionId = section.id;
             updateOutlineSelection();
             editSection(section.id);
         });
 
-        // Edit button click
         li.querySelector('.edit-btn').addEventListener('click', (e) => {
             e.stopPropagation();
             pageState.activeSectionId = section.id;
@@ -688,7 +957,6 @@ function updateOutlineUI() {
             editSection(section.id);
         });
 
-        // Move Up click
         li.querySelector('.move-up').addEventListener('click', (e) => {
             e.stopPropagation();
             if (index > 0) {
@@ -700,7 +968,6 @@ function updateOutlineUI() {
             }
         });
 
-        // Move Down click
         li.querySelector('.move-down').addEventListener('click', (e) => {
             e.stopPropagation();
             if (index < pageState.sections.length - 1) {
@@ -712,7 +979,6 @@ function updateOutlineUI() {
             }
         });
 
-        // Delete Click
         li.querySelector('.trash-btn').addEventListener('click', (e) => {
             e.stopPropagation();
             pageState.sections.splice(index, 1);
@@ -743,7 +1009,7 @@ function updateOutlineSelection() {
     });
 }
 
-// 7. EDIT CONTENT SECTION PANEL (With Section Specific Styles)
+// 7. EDIT CONTENT SECTION PANEL
 function showEmptyEditState() {
     document.querySelector('.edit-no-selection').style.display = 'block';
     document.getElementById('edit-fields-container').style.display = 'none';
@@ -756,7 +1022,6 @@ function editSection(id) {
         return;
     }
 
-    // Switch to edit content tab in sidebar
     document.getElementById('edit-tab-btn').click();
 
     document.querySelector('.edit-no-selection').style.display = 'none';
@@ -766,7 +1031,6 @@ function editSection(id) {
 
     const def = TEMPLATE_DEFS[section.type];
     
-    // Header row
     const headerRow = document.createElement('div');
     headerRow.className = 'edit-header-row';
     headerRow.innerHTML = `
@@ -778,19 +1042,17 @@ function editSection(id) {
     });
     container.appendChild(headerRow);
 
-    // Initialize custom style object if not present
     if (!section.styles) {
         section.styles = {
             customId: '',
             bgType: 'theme',
-            bgColor: '#f9fafb',
+            bgColor: '#ffffff',
             textColor: '#1f2937',
-            paddingTop: pageState.config.sectionPadding,
-            paddingBottom: pageState.config.sectionPadding
+            paddingTop: section.type === 'hero_slider' ? 0 : 70,
+            paddingBottom: section.type === 'hero_slider' ? 0 : 70
         };
     }
 
-    // 7.1 APPEARANCE / STYLE PANEL FOR THIS SECTION
     const styleHeading = document.createElement('h4');
     styleHeading.style.fontSize = '13px';
     styleHeading.style.textTransform = 'uppercase';
@@ -802,22 +1064,19 @@ function editSection(id) {
     styleHeading.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> Gaya Tampilan Seksi`;
     container.appendChild(styleHeading);
 
-    // Custom CSS ID field
     const idGroup = document.createElement('div');
     idGroup.className = 'control-group';
     idGroup.innerHTML = `
-        <label>Custom HTML ID (untuk link anchor, misal: 'pricing')</label>
+        <label>Custom HTML ID (untuk link anchor, misal: 'layanan')</label>
         <input type="text" id="sec-style-id" placeholder="Masukkan ID tanpa tanda #" value="${section.styles.customId || ''}">
     `;
     idGroup.querySelector('input').addEventListener('input', (e) => {
         section.styles.customId = e.target.value.replace(/\s+/g, '-').toLowerCase();
-        // Update section name indicator in Outline UI
         updateOutlineUI();
         render();
     });
     container.appendChild(idGroup);
 
-    // Background Type picker
     const bgTypeGroup = document.createElement('div');
     bgTypeGroup.className = 'control-group';
     bgTypeGroup.innerHTML = `
@@ -832,7 +1091,6 @@ function editSection(id) {
     `;
     container.appendChild(bgTypeGroup);
 
-    // Custom Colors Wrapper (Only visible if background type is custom)
     const customColorsWrapper = document.createElement('div');
     customColorsWrapper.className = 'color-picker-group';
     customColorsWrapper.style.display = section.styles.bgType === 'custom' ? 'flex' : 'none';
@@ -864,7 +1122,6 @@ function editSection(id) {
         e.target.nextElementSibling.textContent = e.target.value.toUpperCase();
         render();
     });
-
     container.appendChild(customColorsWrapper);
 
     bgTypeGroup.querySelector('select').addEventListener('change', (e) => {
@@ -873,7 +1130,6 @@ function editSection(id) {
         render();
     });
 
-    // Custom Padding top/bottom sliders
     const padTopGroup = document.createElement('div');
     padTopGroup.className = 'control-group';
     padTopGroup.innerHTML = `
@@ -906,8 +1162,7 @@ function editSection(id) {
     });
     container.appendChild(padBotGroup);
 
-
-    // 7.2 CONTENT FIELDS
+    // Content fields
     const contentHeading = document.createElement('h4');
     contentHeading.style.fontSize = '13px';
     contentHeading.style.textTransform = 'uppercase';
@@ -919,7 +1174,6 @@ function editSection(id) {
     contentHeading.innerHTML = `<i class="fa-solid fa-file-signature"></i> Isi Konten`;
     container.appendChild(contentHeading);
 
-    // Build form inputs dynamically for content fields
     def.fields.forEach(field => {
         const formGroup = document.createElement('div');
         formGroup.className = 'control-group';
@@ -940,7 +1194,7 @@ function editSection(id) {
         } 
         else if (field.type === 'textarea') {
             const textarea = document.createElement('textarea');
-            textarea.rows = field.id === 'features' || field.id === 'subtitle' ? 4 : 3;
+            textarea.rows = 3;
             textarea.value = section.content[field.id] || '';
             textarea.addEventListener('input', (e) => {
                 section.content[field.id] = e.target.value;
@@ -1016,7 +1270,6 @@ function editSection(id) {
                     });
                     card.appendChild(cardHeader);
 
-                    // Add fields for this item
                     field.fields.forEach(subField => {
                         const subGroup = document.createElement('div');
                         subGroup.className = 'control-group';
@@ -1096,7 +1349,6 @@ function editSection(id) {
                     repeaterContainer.appendChild(card);
                 });
 
-                // Add button for repeater
                 const addRepBtn = document.createElement('button');
                 addRepBtn.className = 'add-repeater-btn';
                 addRepBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Tambah Item Baru`;
@@ -1165,14 +1417,13 @@ function setupDeviceToggles() {
 
 // 10. PRE-MADE TEMPLATE LOADERS
 function setupTemplateLoaders() {
-    ['saas', 'sales', 'lead'].forEach(type => {
+    ['dinas', 'saas', 'sales', 'lead'].forEach(type => {
         const btn = document.getElementById(`load-tpl-${type}`);
         if (btn) {
             btn.addEventListener('click', () => {
                 if (confirm(`Apakah Anda yakin ingin memuat template ${type.toUpperCase()}? Layout desain saat ini akan terhapus.`)) {
                     loadTemplate(type);
                     
-                    // Show animation / feedback
                     btn.style.opacity = '0.7';
                     const originalHtml = btn.innerHTML;
                     btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Loading...`;
@@ -1190,13 +1441,9 @@ function loadTemplate(type) {
     const tpl = FULL_PAGE_TEMPLATES[type];
     if (!tpl) return;
 
-    // Apply config
     pageState.config = JSON.parse(JSON.stringify(tpl.config));
-    
-    // Apply sections (deep copy to avoid mutation of constant templates)
     pageState.sections = JSON.parse(JSON.stringify(tpl.sections));
 
-    // Update global sliders UI to sync
     document.getElementById('container-width').value = pageState.config.containerWidth;
     document.getElementById('container-width').nextElementSibling.textContent = pageState.config.containerWidth + 'px';
     
@@ -1205,10 +1452,8 @@ function loadTemplate(type) {
     
     document.getElementById('font-family').value = pageState.config.fontFamily;
 
-    // Sync theme colors UI
     applyThemeColors(pageState.config);
 
-    // Reset editing states
     pageState.activeSectionId = pageState.sections.length > 0 ? pageState.sections[0].id : null;
 
     updateOutlineUI();
@@ -1227,8 +1472,6 @@ function setupDownloadBtn() {
     if (btn) {
         btn.addEventListener('click', () => {
             const code = document.getElementById('code-output').textContent;
-            
-            // Create BLOB link for local browser download
             const blob = new Blob([code], { type: 'text/html;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             
@@ -1283,7 +1526,6 @@ function setupProjectIO() {
                     if (parsed && parsed.config && Array.isArray(parsed.sections)) {
                         pageState = parsed;
                         
-                        // Sync slider controls
                         document.getElementById('container-width').value = pageState.config.containerWidth;
                         document.getElementById('container-width').nextElementSibling.textContent = pageState.config.containerWidth + 'px';
                         document.getElementById('section-padding').value = pageState.config.sectionPadding;
@@ -1292,7 +1534,6 @@ function setupProjectIO() {
 
                         applyThemeColors(pageState.config);
 
-                        // Reset editing states
                         pageState.activeSectionId = pageState.sections.length > 0 ? pageState.sections[0].id : null;
                         
                         updateOutlineUI();
@@ -1311,7 +1552,6 @@ function setupProjectIO() {
                     console.error(err);
                     alert('Gagal membaca file JSON layout: ' + err.message);
                 }
-                // Clear input value
                 fileInput.value = '';
             };
             reader.readAsText(file);
@@ -1324,7 +1564,6 @@ function render() {
     const generatedHtml = compileHtml();
     const generatedCss = compileCss();
 
-    // Combined block for WP Code
     const combinedOutput = `<!-- WordPress Custom Page Layout - Generated with WP PageGen -->
 <div class="wppg-page-container">
     <style>
@@ -1337,10 +1576,8 @@ ${generatedHtml}
 </div>
 <!-- End WordPress Custom Page Layout -->`;
 
-    // 1. Output raw code to view
     document.getElementById('code-output').textContent = combinedOutput;
 
-    // 2. Render inside Preview iframe
     const iframe = document.getElementById('preview-iframe');
     if (iframe) {
         const fontImport = pageState.config.fontFamily !== 'System' 
@@ -1394,11 +1631,7 @@ function compileHtml() {
     let html = '';
     pageState.sections.forEach(section => {
         const c = section.content;
-        
-        // Determine ID to write inside tag
         const elementId = section.styles?.customId ? section.styles.customId : section.id;
-        
-        // Determine background type class to apply specific global styles if using light/dark/primary
         const bgClass = section.styles?.bgType ? `wppg-bg-${section.styles.bgType}` : 'wppg-bg-theme';
 
         switch (section.type) {
@@ -1447,8 +1680,187 @@ function compileHtml() {
                 }
                 break;
 
+            case 'hero_slider':
+                let slidesHtml = '';
+                const slideCount = c.items ? c.items.length : 1;
+                const slideWidth = 100 / slideCount;
+                if (c.items && c.items.length > 0) {
+                    c.items.forEach(item => {
+                        slidesHtml += `
+                <div class="wppg-slider-slide" style="width: ${slideWidth}%; background-image: url('${item.image || ''}');">
+                    <div class="wppg-slider-overlay">
+                        <div class="wppg-container">
+                            <div class="wppg-slider-content">
+                                <h2 class="wppg-slider-title">${item.title}</h2>
+                                <p class="wppg-slider-subtitle">${item.subtitle}</p>
+                                ${item.btnText ? `<a href="${item.btnLink}" class="wppg-btn wppg-btn-primary">${item.btnText}</a>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+                    });
+                }
+                html += `
+        <!-- Hero Slider Section -->
+        <section class="wppg-hero-slider-sec ${bgClass}" id="${elementId}">
+            <div class="wppg-slider-container">
+                <div class="wppg-slider-slides">
+                    ${slidesHtml}
+                </div>
+            </div>
+        </section>\n`;
+                break;
+
+            case 'quick_links':
+                let qlHtml = '';
+                if (c.items && c.items.length > 0) {
+                    c.items.forEach(item => {
+                        qlHtml += `
+                    <a href="${item.link || '#'}" class="wppg-ql-card">
+                        <div class="wppg-ql-icon">${item.icon || '🔗'}</div>
+                        <h3 class="wppg-ql-card-title">${item.title}</h3>
+                        <p class="wppg-ql-card-desc">${item.desc}</p>
+                        <span class="wppg-ql-card-link-txt">Akses Layanan ${SVG_ICONS.chevronRight}</span>
+                    </a>`;
+                    });
+                }
+                html += `
+        <!-- Quick Links Section -->
+        <section class="wppg-quick-links ${bgClass}" id="${elementId}">
+            <div class="wppg-container">
+                <div class="wppg-section-header">
+                    <h2 class="wppg-section-title">${c.title}</h2>
+                    <p class="wppg-section-subtitle">${c.subtitle}</p>
+                </div>
+                <div class="wppg-grid wppg-cols-4">
+                    ${qlHtml}
+                </div>
+            </div>
+        </section>\n`;
+                break;
+
+            case 'news_grid':
+                let newsHtml = '';
+                if (c.items && c.items.length > 0) {
+                    c.items.forEach(item => {
+                        newsHtml += `
+                    <div class="wppg-news-card">
+                        <div class="wppg-news-img-wrapper">
+                            <img src="${item.image || 'https://via.placeholder.com/600x400'}" alt="${item.title}" class="wppg-news-img">
+                            ${item.cat ? `<span class="wppg-news-badge">${item.cat}</span>` : ''}
+                        </div>
+                        <div class="wppg-news-body">
+                            <span class="wppg-news-date">${item.date || ''}</span>
+                            <h3 class="wppg-news-card-title">${item.title}</h3>
+                            <p class="wppg-news-card-excerpt">${item.excerpt}</p>
+                            <a href="${item.link || '#'}" class="wppg-news-readmore">Selengkapnya ${SVG_ICONS.chevronRight}</a>
+                        </div>
+                    </div>`;
+                    });
+                }
+                html += `
+        <!-- News Grid Section -->
+        <section class="wppg-news-grid-sec ${bgClass}" id="${elementId}">
+            <div class="wppg-container">
+                <div class="wppg-section-header">
+                    <h2 class="wppg-section-title">${c.title}</h2>
+                    <p class="wppg-section-subtitle">${c.subtitle}</p>
+                </div>
+                <div class="wppg-grid wppg-cols-3">
+                    ${newsHtml}
+                </div>
+            </div>
+        </section>\n`;
+                break;
+
+            case 'video_block':
+                html += `
+        <!-- YouTube Video Block Section -->
+        <section class="wppg-video-block-sec ${bgClass}" id="${elementId}">
+            <div class="wppg-container">
+                <div class="wppg-section-header">
+                    <h2 class="wppg-section-title">${c.title}</h2>
+                    <p class="wppg-section-subtitle">${c.subtitle}</p>
+                </div>
+                <div class="wppg-video-grid">
+                    <div class="wppg-video-iframe-wrap">
+                        <iframe src="${c.youtubeUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="wppg-video-info-content">
+                        <p class="wppg-video-description">${c.textDesc}</p>
+                        ${c.btnText ? `<a href="${c.btnLink}" class="wppg-btn wppg-btn-primary">${c.btnText}</a>` : ''}
+                    </div>
+                </div>
+            </div>
+        </section>\n`;
+                break;
+
+            case 'cert_slider':
+                let certHtml = '';
+                const certCount = c.items ? c.items.length : 1;
+                const certWidth = 100 / certCount;
+                if (c.items && c.items.length > 0) {
+                    c.items.forEach(item => {
+                        certHtml += `
+                <div class="wppg-cert-slide" style="width: ${certWidth}%;">
+                    <div class="wppg-cert-card">
+                        <img src="${item.image || 'https://via.placeholder.com/400x300'}" alt="${item.title}" class="wppg-cert-image">
+                        <div class="wppg-cert-card-body">
+                            <h4 class="wppg-cert-card-title">${item.title}</h4>
+                            <span class="wppg-cert-card-date">${item.date || ''}</span>
+                        </div>
+                    </div>
+                </div>`;
+                    });
+                }
+                html += `
+        <!-- Certificate Slider Section -->
+        <section class="wppg-cert-slider-sec ${bgClass}" id="${elementId}">
+            <div class="wppg-container">
+                <div class="wppg-section-header">
+                    <h2 class="wppg-section-title">${c.title}</h2>
+                    <p class="wppg-section-subtitle">${c.subtitle}</p>
+                </div>
+                <div class="wppg-cert-slider-frame">
+                    <div class="wppg-cert-slider-inner">
+                        ${certHtml}
+                    </div>
+                </div>
+            </div>
+        </section>\n`;
+                break;
+
+            case 'important_links':
+                let impHtml = '';
+                if (c.items && c.items.length > 0) {
+                    c.items.forEach(item => {
+                        impHtml += `
+                    <div class="wppg-imp-link-card">
+                        <div class="wppg-imp-link-body">
+                            <h4 class="wppg-imp-link-title">${item.name}</h4>
+                            <p class="wppg-imp-link-desc">${item.desc}</p>
+                        </div>
+                        <a href="${item.link || '#'}" class="wppg-btn wppg-btn-outline wppg-imp-link-action" target="_blank">Kunjungi Link ${SVG_ICONS.chevronRight}</a>
+                    </div>`;
+                    });
+                }
+                html += `
+        <!-- Important Links Section -->
+        <section class="wppg-important-links ${bgClass}" id="${elementId}">
+            <div class="wppg-container">
+                <div class="wppg-section-header">
+                    <h2 class="wppg-section-title">${c.title}</h2>
+                    <p class="wppg-section-subtitle">${c.subtitle}</p>
+                </div>
+                <div class="wppg-imp-links-list">
+                    ${impHtml}
+                </div>
+            </div>
+        </section>\n`;
+                break;
+
             case 'features':
-                let colClass = `wppg-cols-${c.cols || '3'}`;
+                let featCols = `wppg-cols-${c.cols || '3'}`;
                 let featuresHtml = '';
                 if (c.items && c.items.length > 0) {
                     c.items.forEach(item => {
@@ -1468,7 +1880,7 @@ function compileHtml() {
                     <h2 class="wppg-section-title">${c.title}</h2>
                     <p class="wppg-section-subtitle">${c.subtitle}</p>
                 </div>
-                <div class="wppg-grid ${colClass}">
+                <div class="wppg-grid ${featCols}">
                     ${featuresHtml}
                 </div>
             </div>
@@ -1697,7 +2109,6 @@ function compileHtml() {
 function compileCss() {
     const cfg = pageState.config;
     
-    // Start with core page styles
     let css = `/* Scoped Styles for WordPress Custom Page Container */
 .wppg-page-container {
     --wppg-primary: ${cfg.primary};
@@ -1757,7 +2168,9 @@ function compileCss() {
 }
 .wppg-page-container .wppg-bg-primary .wppg-section-subtitle,
 .wppg-page-container .wppg-bg-primary .wppg-feature-card-desc,
-.wppg-page-container .wppg-page-container .wppg-bg-primary .wppg-contact-subtitle {
+.wppg-page-container .wppg-bg-primary .wppg-contact-subtitle,
+.wppg-page-container .wppg-bg-primary .wppg-ql-card-desc,
+.wppg-page-container .wppg-bg-primary .wppg-news-card-excerpt {
     opacity: 0.85;
 }
 
@@ -1801,7 +2214,6 @@ function compileCss() {
     transform: translateY(-2px);
 }
 
-/* Primary background button override */
 .wppg-bg-primary .wppg-btn-secondary {
     color: #ffffff !important;
     border-color: rgba(255, 255, 255, 0.4);
@@ -1937,6 +2349,451 @@ function compileCss() {
     display: flex;
     justify-content: center;
 }
+
+/* 1.1 Header Slider Styles (CSS-only automatic carousel) */
+.wppg-hero-slider-sec {
+    padding: 0 !important;
+}
+
+.wppg-slider-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 520px;
+    background-color: #0f172a;
+}
+
+.wppg-slider-slides {
+    height: 100%;
+    display: flex;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wppg-slider-slide {
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.wppg-slider-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.4) 60%, rgba(15, 23, 42, 0.8) 100%);
+    display: flex;
+    align-items: center;
+}
+
+.wppg-slider-content {
+    max-width: 700px;
+    color: #ffffff;
+    z-index: 2;
+    padding: 0 20px;
+}
+
+.wppg-slider-title {
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    letter-spacing: -0.5px;
+}
+
+.wppg-slider-subtitle {
+    font-size: 16px;
+    opacity: 0.95;
+    margin-bottom: 30px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    line-height: 1.6;
+}
+
+/* 1.2 Quick Links Menu Grid */
+.wppg-quick-links {
+    padding: var(--wppg-padding) 0;
+}
+
+.wppg-ql-card {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    padding: 28px 24px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.wppg-bg-light .wppg-ql-card {
+    background-color: #ffffff;
+    border-color: rgba(0, 0, 0, 0.05);
+}
+
+.wppg-bg-dark .wppg-ql-card {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+.wppg-bg-primary .wppg-ql-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.wppg-ql-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+    border-color: var(--wppg-primary);
+}
+.wppg-bg-primary .wppg-ql-card:hover {
+    border-color: #ffffff;
+}
+
+.wppg-ql-icon {
+    font-size: 30px;
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(var(--wppg-primary-rgb), 0.08);
+    border-radius: 50%;
+    margin-bottom: 18px;
+}
+.wppg-bg-primary .wppg-ql-icon {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.wppg-ql-card-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--wppg-text);
+}
+.wppg-bg-primary .wppg-ql-card-title {
+    color: #ffffff;
+}
+
+.wppg-ql-card-desc {
+    font-size: 13px;
+    opacity: 0.8;
+    margin-bottom: 16px;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.wppg-ql-card-link-txt {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--wppg-primary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.wppg-bg-primary .wppg-ql-card-link-txt {
+    color: #ffffff;
+}
+
+/* 1.3 News Grid layout with tags, dates & excerpts */
+.wppg-news-grid-sec {
+    padding: var(--wppg-padding) 0;
+}
+
+.wppg-news-card {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.wppg-bg-light .wppg-news-card {
+    background-color: #ffffff;
+}
+.wppg-bg-dark .wppg-news-card {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+.wppg-bg-primary .wppg-news-card {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.wppg-news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+}
+
+.wppg-news-img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.wppg-news-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.wppg-news-card:hover .wppg-news-img {
+    transform: scale(1.05);
+}
+
+.wppg-news-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background-color: var(--wppg-primary);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+.wppg-bg-primary .wppg-news-badge {
+    background-color: #ffffff;
+    color: var(--wppg-primary);
+}
+
+.wppg-news-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.wppg-news-date {
+    font-size: 12px;
+    opacity: 0.6;
+    margin-bottom: 8px;
+}
+
+.wppg-news-card-title {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    color: var(--wppg-text);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.wppg-bg-primary .wppg-news-card-title {
+    color: #ffffff;
+}
+
+.wppg-news-card-excerpt {
+    font-size: 13.5px;
+    opacity: 0.8;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.wppg-news-readmore {
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--wppg-primary);
+    display: inline-flex;
+    align-items: center;
+    margin-top: auto;
+}
+.wppg-bg-primary .wppg-news-readmore {
+    color: #ffffff;
+}
+
+/* 1.4 YouTube Video Layout */
+.wppg-video-block-sec {
+    padding: var(--wppg-padding) 0;
+}
+
+.wppg-video-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.wppg-video-iframe-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+.wppg-video-iframe-wrap iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.wppg-video-info-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.wppg-video-description {
+    font-size: 15px;
+    line-height: 1.7;
+    opacity: 0.85;
+}
+
+/* 1.5 Certificates Gallery Grid */
+.wppg-cert-slider-sec {
+    padding: var(--wppg-padding) 0;
+}
+
+.wppg-cert-slider-frame {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    padding-bottom: 15px;
+}
+
+.wppg-cert-slider-inner {
+    display: flex;
+    gap: 24px;
+}
+
+.wppg-cert-slide {
+    flex-shrink: 0;
+    width: 32%;
+    min-width: 290px;
+}
+
+.wppg-cert-card {
+    background-color: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    transition: transform 0.25s ease;
+}
+
+.wppg-cert-card:hover {
+    transform: scale(1.02);
+    border-color: var(--wppg-primary);
+}
+
+.wppg-cert-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background-color: #f1f5f9;
+}
+
+.wppg-cert-card-body {
+    padding: 18px 20px;
+    border-top: 1px solid #f1f5f9;
+    color: #1e293b;
+}
+
+.wppg-cert-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.wppg-cert-card-date {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* 1.6 Important Links list (2-columns / blocks) */
+.wppg-important-links {
+    padding: var(--wppg-padding) 0;
+}
+
+.wppg-imp-links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.wppg-imp-link-card {
+    background-color: rgba(255,255,255, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+}
+
+.wppg-bg-light .wppg-imp-link-card {
+    background-color: #ffffff;
+}
+.wppg-bg-dark .wppg-imp-link-card {
+    background-color: rgba(255,255,255, 0.04);
+    border-color: rgba(255,255,255, 0.08);
+}
+.wppg-bg-primary .wppg-imp-link-card {
+    background-color: rgba(255,255,255, 0.08);
+    border-color: rgba(255,255,255, 0.15);
+}
+
+.wppg-imp-link-body {
+    flex: 1;
+}
+
+.wppg-imp-link-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--wppg-text);
+}
+.wppg-bg-primary .wppg-imp-link-title {
+    color: #ffffff;
+}
+
+.wppg-imp-link-desc {
+    font-size: 13px;
+    opacity: 0.75;
+}
+
+.wppg-imp-link-action {
+    padding: 8px 16px;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+.wppg-bg-primary .wppg-imp-link-action {
+    background-color: #ffffff;
+    color: var(--wppg-primary) !important;
+    border-color: #ffffff;
+}
+.wppg-bg-primary .wppg-imp-link-action:hover {
+    background-color: transparent;
+    color: #ffffff !important;
+}
+
 
 /* 2. Features Grid */
 .wppg-features {
@@ -2119,7 +2976,6 @@ function compileCss() {
     margin-top: auto;
 }
 
-/* Primary background button color changes */
 .wppg-bg-primary .wppg-pricing-popular .wppg-btn-primary {
     background-color: #ffffff;
     color: var(--wppg-primary) !important;
@@ -2539,9 +3395,16 @@ function compileCss() {
     .wppg-cols-3 {
         grid-template-columns: repeat(2, 1fr);
     }
+    .wppg-cols-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
     .wppg-contact-grid {
         grid-template-columns: 1fr;
         gap: 40px;
+    }
+    .wppg-video-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
     }
 }
 
@@ -2578,9 +3441,21 @@ function compileCss() {
         flex-direction: column;
         text-align: center;
     }
+    .wppg-slider-container {
+        height: 380px;
+    }
+    .wppg-slider-title {
+        font-size: 26px;
+    }
+    .wppg-slider-subtitle {
+        font-size: 14px;
+    }
+    .wppg-cert-slide {
+        width: 100%;
+    }
 }`;
 
-    // Add section-specific custom styling overrides (ID, padding, colors)
+    // Add section-specific custom styling overrides
     pageState.sections.forEach(section => {
         const id = section.styles?.customId ? section.styles.customId : section.id;
         const styles = section.styles;
@@ -2605,10 +3480,36 @@ function compileCss() {
             }
             css += `}`;
             
-            // Handle child text overrides for custom colors
             if (styles.bgType === 'custom') {
-                css += `\n#${id} .wppg-section-title, #${id} .wppg-feature-card-title, #${id} .wppg-pricing-plan, #${id} .wppg-testimonial-name, #${id} .wppg-contact-title, #${id} .wppg-faq-question { color: inherit !important; }`;
-                css += `\n#${id} .wppg-section-subtitle, #${id} .wppg-feature-card-desc, #${id} .wppg-pricing-desc, #${id} .wppg-testimonial-quote, #${id} .wppg-contact-subtitle, #${id} .wppg-faq-answer { color: inherit !important; opacity: 0.85; }`;
+                css += `\n#${id} .wppg-section-title, #${id} .wppg-feature-card-title, #${id} .wppg-pricing-plan, #${id} .wppg-testimonial-name, #${id} .wppg-contact-title, #${id} .wppg-faq-question, #${id} .wppg-ql-card-title, #${id} .wppg-news-card-title, #${id} .wppg-imp-link-title { color: inherit !important; }`;
+                css += `\n#${id} .wppg-section-subtitle, #${id} .wppg-feature-card-desc, #${id} .wppg-pricing-desc, #${id} .wppg-testimonial-quote, #${id} .wppg-contact-subtitle, #${id} .wppg-faq-answer, #${id} .wppg-ql-card-desc, #${id} .wppg-news-card-excerpt, #${id} .wppg-imp-link-desc { color: inherit !important; opacity: 0.85; }`;
+            }
+        }
+
+        // Generate dynamic keyframes for automatic hero slider animation
+        if (section.type === 'hero_slider') {
+            const slideCount = section.content.items ? section.content.items.length : 1;
+            if (slideCount > 1) {
+                const slideWidthPercentage = 100 / slideCount;
+                css += `\n\n/* Slider animation keyframes for #${id} */
+#${id} .wppg-slider-slides {
+    display: flex;
+    width: ${slideCount * 100}%;
+    animation: wppg-slide-anim-${id} ${slideCount * 5}s infinite;
+}
+@keyframes wppg-slide-anim-${id} {
+`;
+                for (let i = 0; i < slideCount; i++) {
+                    const translatePercent = -(i * slideWidthPercentage);
+                    const startPercent = i * (100 / slideCount);
+                    const holdPercent = startPercent + (100 / slideCount) * 0.8;
+                    const endPercent = (i + 1) * (100 / slideCount);
+                    
+                    css += `    ${startPercent.toFixed(1)}%, ${holdPercent.toFixed(1)}% { transform: translateX(${translatePercent}%); }\n`;
+                }
+                css += `    100% { transform: translateX(0); }\n}`;
+            } else {
+                css += `\n#${id} .wppg-slider-slides { width: 100%; }`;
             }
         }
     });
