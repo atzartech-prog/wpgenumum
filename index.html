@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WP Page & Landing Page Generator - No Plugin Required</title>
+    <meta name="description" content="Generate custom WordPress page layouts with raw HTML/CSS. Copy and paste directly into WordPress Code Editor without any plugins.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons in the Generator UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Controls -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fa-brands fa-wordpress logo-wp"></i>
+                    <span>WP Page<span>Gen</span></span>
+                </div>
+                <p class="tagline">Copy-Paste HTML & CSS Editor</p>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="sidebar-tabs">
+                <button class="tab-btn active" data-tab="style-tab">
+                    <i class="fa-solid fa-palette"></i> Style
+                </button>
+                <button class="tab-btn" data-tab="sections-tab">
+                    <i class="fa-solid fa-cubes"></i> Sections
+                </button>
+                <button class="tab-btn" data-tab="edit-tab" id="edit-tab-btn">
+                    <i class="fa-solid fa-sliders"></i> Edit Content
+                </button>
+            </div>
+
+            <!-- Tab Contents -->
+            <div class="tab-contents">
+                <!-- Style Settings Tab -->
+                <div class="tab-content active" id="style-tab">
+                    <h3>Theme Palette</h3>
+                    <div class="preset-grids">
+                        <button class="preset-btn active" data-preset="modern-indigo" style="background: linear-gradient(135deg, #6366f1, #4f46e5);">Modern Indigo</button>
+                        <button class="preset-btn" data-preset="ocean-teal" style="background: linear-gradient(135deg, #0d9488, #0f766e);">Ocean Teal</button>
+                        <button class="preset-btn" data-preset="coral-pink" style="background: linear-gradient(135deg, #f43f5e, #be123c);">Coral Pink</button>
+                        <button class="preset-btn" data-preset="sunset-gold" style="background: linear-gradient(135deg, #f59e0b, #b45309);">Sunset Gold</button>
+                        <button class="preset-btn" data-preset="dark-emerald" style="background: linear-gradient(135deg, #10b981, #047857);">Dark Emerald</button>
+                        <button class="preset-btn" data-preset="purple-cyber" style="background: linear-gradient(135deg, #d946ef, #701a75);">Cyber Purple</button>
+                    </div>
+
+                    <h3>Custom Colors</h3>
+                    <div class="color-picker-group">
+                        <label for="color-primary">
+                            <span>Primary Color</span>
+                            <div class="color-input-wrapper">
+                                <input type="color" id="color-primary" value="#6366f1">
+                                <span class="color-hex">#6366f1</span>
+                            </div>
+                        </label>
+                        <label for="color-secondary">
+                            <span>Secondary Color</span>
+                            <div class="color-input-wrapper">
+                                <input type="color" id="color-secondary" value="#a855f7">
+                                <span class="color-hex">#a855f7</span>
+                            </div>
+                        </label>
+                        <label for="color-bg">
+                            <span>Section Background</span>
+                            <div class="color-input-wrapper">
+                                <input type="color" id="color-bg" value="#ffffff">
+                                <span class="color-hex">#ffffff</span>
+                            </div>
+                        </label>
+                        <label for="color-text">
+                            <span>Text Color</span>
+                            <div class="color-input-wrapper">
+                                <input type="color" id="color-text" value="#1f2937">
+                                <span class="color-hex">#1f2937</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <h3>Typography</h3>
+                    <div class="control-group">
+                        <label for="font-family">Heading Font</label>
+                        <select id="font-family">
+                            <option value="Outfit">Outfit</option>
+                            <option value="Space Grotesk">Space Grotesk</option>
+                            <option value="Inter">Inter</option>
+                            <option value="Roboto">Roboto</option>
+                            <option value="System">System Default</option>
+                        </select>
+                    </div>
+
+                    <h3>Layout Configuration</h3>
+                    <div class="control-group">
+                        <label for="container-width">Max Container Width</label>
+                        <div class="range-wrapper">
+                            <input type="range" id="container-width" min="800" max="1400" step="50" value="1150">
+                            <span class="range-val">1150px</span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="section-padding">Padding Top/Bottom</label>
+                        <div class="range-wrapper">
+                            <input type="range" id="section-padding" min="20" max="120" step="10" value="70">
+                            <span class="range-val">70px</span>
+                        </div>
+                    </div>
+
+                    <h3>Full Page Templates</h3>
+                    <div class="preset-grids" style="grid-template-columns: 1fr; gap: 8px;">
+                        <button class="preset-btn" id="load-tpl-saas" style="background: linear-gradient(135deg, #2563eb, #1d4ed8); padding: 8px; font-size: 13px;">
+                            <i class="fa-solid fa-cloud-arrow-down"></i> SaaS Landing Page Template
+                        </button>
+                        <button class="preset-btn" id="load-tpl-sales" style="background: linear-gradient(135deg, #059669, #047857); padding: 8px; font-size: 13px;">
+                            <i class="fa-solid fa-cloud-arrow-down"></i> Product Sales Page Template
+                        </button>
+                        <button class="preset-btn" id="load-tpl-lead" style="background: linear-gradient(135deg, #d97706, #b45309); padding: 8px; font-size: 13px;">
+                            <i class="fa-solid fa-cloud-arrow-down"></i> Lead Capture Page Template
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Add & Manage Sections Tab -->
+                <div class="tab-content" id="sections-tab">
+                    <h3>Add Sections</h3>
+                    <div class="add-section-grid">
+                        <button class="add-btn" data-type="hero">
+                            <i class="fa-solid fa-window-maximize"></i>
+                            <span>Hero Header</span>
+                        </button>
+                        <button class="add-btn" data-type="features">
+                            <i class="fa-solid fa-table-columns"></i>
+                            <span>Features Grid</span>
+                        </button>
+                        <button class="add-btn" data-type="pricing">
+                            <i class="fa-solid fa-tags"></i>
+                            <span>Pricing Table</span>
+                        </button>
+                        <button class="add-btn" data-type="testimonials">
+                            <i class="fa-solid fa-quote-left"></i>
+                            <span>Testimonials</span>
+                        </button>
+                        <button class="add-btn" data-type="faq">
+                            <i class="fa-solid fa-circle-question"></i>
+                            <span>FAQ Accordion</span>
+                        </button>
+                        <button class="add-btn" data-type="cta">
+                            <i class="fa-solid fa-bullhorn"></i>
+                            <span>Call to Action</span>
+                        </button>
+                        <button class="add-btn" data-type="contact">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>Contact Area</span>
+                        </button>
+                        <button class="add-btn" data-type="footer">
+                            <i class="fa-solid fa-border-bottom"></i>
+                            <span>Simple Footer</span>
+                        </button>
+                    </div>
+
+                    <h3>Page Outline</h3>
+                    <div class="outline-container">
+                        <p class="empty-outline-msg">No sections added yet. Click above to add some!</p>
+                        <ul class="section-list" id="active-sections-list">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Edit Content Tab -->
+                <div class="tab-content" id="edit-tab">
+                    <p class="edit-no-selection">Select a section from the "Page Outline" or click edit on a section to change its details.</p>
+                    <div id="edit-fields-container" style="display: none;">
+                        <!-- Dynamically generated fields by JavaScript depending on selected section -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Meta -->
+            <div class="sidebar-footer">
+                <div class="project-io-btns" style="display: flex; gap: 8px; margin-bottom: 12px;">
+                    <button class="preset-btn" id="export-json-btn" style="flex: 1; padding: 6px 4px; font-size: 11px; background-color: var(--bg-card); border-color: var(--border-color);"><i class="fa-solid fa-file-export"></i> Export JSON</button>
+                    <button class="preset-btn" id="import-json-btn" style="flex: 1; padding: 6px 4px; font-size: 11px; background-color: var(--bg-card); border-color: var(--border-color);"><i class="fa-solid fa-file-import"></i> Import JSON</button>
+                    <input type="file" id="import-file-input" accept=".json" style="display: none;">
+                </div>
+                <p>WP PageGen v1.0 • Pure HTML/CSS</p>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <header class="workspace-header">
+                <!-- Preview / Code Mode Toggle -->
+                <div class="mode-toggles">
+                    <button class="mode-btn active" id="mode-preview-btn">
+                        <i class="fa-solid fa-eye"></i> Live Preview
+                    </button>
+                    <button class="mode-btn" id="mode-code-btn">
+                        <i class="fa-solid fa-code"></i> Generated Code
+                    </button>
+                </div>
+
+                <!-- Responsive Device Toggles (Only visible in Preview mode) -->
+                <div class="device-toggles" id="device-toggles-container">
+                    <button class="device-btn active" data-device="desktop" title="Desktop View">
+                        <i class="fa-solid fa-desktop"></i>
+                    </button>
+                    <button class="device-btn" data-device="tablet" title="Tablet View">
+                        <i class="fa-solid fa-tablet-screen-button"></i>
+                    </button>
+                    <button class="device-btn" data-device="mobile" title="Mobile View">
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+                    </button>
+                </div>
+
+                <!-- Copy / Actions -->
+                <div class="workspace-actions" style="display: flex; gap: 10px;">
+                    <button class="action-btn download-btn" id="download-html-btn" style="background-color: var(--primary); box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);">
+                        <i class="fa-solid fa-download"></i> Download HTML
+                    </button>
+                    <button class="action-btn copy-btn" id="copy-code-btn">
+                        <i class="fa-solid fa-copy"></i> Copy Clean Code
+                    </button>
+                </div>
+            </header>
+
+            <div class="workspace-body">
+                <!-- Preview Container (Iframe) -->
+                <div class="preview-container" id="preview-panel">
+                    <div class="iframe-wrapper desktop-width" id="iframe-wrapper">
+                        <iframe id="preview-iframe" title="WP Page Preview"></iframe>
+                    </div>
+                </div>
+
+                <!-- Code Editor / View Container -->
+                <div class="code-container hidden" id="code-panel">
+                    <div class="code-header">
+                        <span>WordPress HTML Code Block Editor Ready</span>
+                        <span class="info-badge">No Plugin Required</span>
+                    </div>
+                    <div class="code-editor-wrapper">
+                        <pre><code id="code-output">Generating code...</code></pre>
+                    </div>
+                    <div class="code-instruction-box">
+                        <h4><i class="fa-solid fa-info-circle"></i> How to use this code in WordPress:</h4>
+                        <ol>
+                            <li>Click the <strong>"Copy Clean Code"</strong> button above.</li>
+                            <li>Go to your WordPress Dashboard and Edit your Post or Page.</li>
+                            <li>Add a new block and search for <strong>"Custom HTML"</strong> (HTML Khusus) or switch the entire editor to <strong>"Code Editor"</strong> (Editor Kode).</li>
+                            <li>Paste the copied code directly. Publish/Preview and enjoy your beautiful responsive page!</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Script -->
+    <script src="app.js"></script>
+</body>
+</html>
